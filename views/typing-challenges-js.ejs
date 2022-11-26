@@ -1,2 +1,8 @@
 
-let challenges = <%-JSON.stringify(challenges.map(c=>c.text))%>;
+
+<% if (challenges.length < 1) { %>
+    let challenges = ['default'] 
+    <%} else { %>
+        let challenges = <%-JSON.stringify(challenges.map(c=>c.text))%>;
+    <% }
+%>

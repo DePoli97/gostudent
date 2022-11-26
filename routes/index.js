@@ -1,5 +1,5 @@
 /**
- * Web Atelier 2022  Exercise 6 - Persistent Web Apps and APIs with MongoDB
+ * Web Atelier 2022  Exercise 5 - Web Apps and APIs with Express
  *
  * Student: __STUDENT NAME__
  *

@@ -38,9 +38,10 @@
 
       <h1> Edit Challenge <%= i %></h1>
 
-      <% let d = data
+      <% let d = data[i]
          let newlink = '/games/typing/challenges/' + i + '?_method=PUT'
          let challenge_text = d.text
+
          %>
       <form method="POST" class="postform" action=<%= newlink %> >
          <span>

@@ -1,5 +1,5 @@
 /**
- * Web Atelier 2022  Exercise 6 - Persistent Web Apps and APIs with MongoDB
+ * Web Atelier 2022  Exercise 5 - Web Apps and APIs with Express
  *
  * Student: __STUDENT NAME__
  *
@@ -11,15 +11,8 @@ const express = require('express');
 const router = express.Router();
 module.exports = router;
 
+const hs = require('../model/high_scores');
 
-let { model } = require("../model/");
-
-
-router.get(["/", "index", "/index.html"], (req, res) => {
-
-    /* Quiz 11 */
-    model.high_scores.find({}).toArray().then(high_scores => {
-
-        res.render("index.ejs", { data : high_scores });
-    });
-});
+router.get(["/", "index", "/index.html"], (req, res)=> {
+    res.render('index', {data : hs.data});
+})
