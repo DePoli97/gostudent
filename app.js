@@ -1,11 +1,11 @@
 /**
- * Web Atelier 2022  Exercise 5 - Web Apps and APIs with Express
+ * Web Atelier 2022  Exercise 6 - Persistent Web Apps and APIs with MongoDB
  *
  * Student: __STUDENT NAME__
  *
  * Main Server Application
  *
- * version 999 Thu Oct 20 2022 18:33:12 GMT+0200 (Central European Summer Time)
+ * version 1121 Thu Oct 27 2022 12:01:12 GMT+0200 (Central European Summer Time)
  *
  */
 
@@ -31,10 +31,10 @@ const app = express();
 
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));    // parse application/x-www-form-urlencoded
+app.use(express.json({limit: '4MB'}));    // parse application/json
 
 app.use(express.static(path.join(__dirname, 'public'), {index: "index.html"}));
 
-app.use(express.json({limit: '4MB'}));    // parse application/json
 app.use(methodOverride('_method'));
 
 app.set('view engine', 'ejs');
@@ -46,7 +46,6 @@ const routers = require('./routes');
 app.use(routers.home);
 app.use('/games', routers.games);
 app.use('/high_scores', routers.high_scores);
-
 
 //default fallback handlers
 // catch 404 and forward to error handler

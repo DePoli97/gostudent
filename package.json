@@ -1,25 +1,16 @@
 {
-  "name": "web-atelier-exercise-5",
+  "name": "web-atelier-exercise-6",
   "version": "1.0.0",
-  "description": "Web Atelier Exercise 5 Skeleton",
+  "description": "Web Atelier Exercise 6 Skeleton",
   "main": "index.js",
   "author": "__STUDENT NAME__",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "dev": "DEBUG=router:* nodemon --delay 1 --ignore public/ app.js",
     "test": "mocha --exit",
-    "ejsc": "node ejs-compile.js"
-  },
+    "ejsc": "node ejs-compile.js"  },
   "dependencies": {
-    "ejs": "^3.1.8",
-    "express": "^4.18.2",
-    "fast-check": "^3.3.0",
-    "fs-extra": "^10.1.0",
-    "glob-fs": "^0.1.7",
-    "method-override": "^3.0.0",
-    "morgan": "^1.10.0",
-    "path": "^0.12.7"
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.12",
