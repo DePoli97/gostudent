@@ -57,13 +57,17 @@
          <%
          for(let i = 0; i < arr.length; i++) {
             let displayable = arr[i];
-            let idlink = "/games/typing/challenges/" + displayable.id + "?_method=DELETE";
-            let editlink = "/games/typing/challenges/" + displayable.id + "/edit";
+            let idlink = "/games/typing/challenges/" + displayable._id + "?_method=DELETE";
+            let editlink = "/games/typing/challenges/" + displayable._id + "/edit";
             if (displayable != undefined) { %>
                <li class="challenge">
                   <span class="desc"> Challenge: </span> <span> <%= displayable.text %>  </span> <br>
                   <span class="desc"> Author: <%= displayable.author %> </span> <br>
                   <span class="desc"> Level: <%= displayable.level %>  </span>
+                  <% if(displayable.played != undefined) { %>
+                     <br>
+                     <span class="desc"> Played: <%= displayable.played %>  Times</span>   
+                  <% } %>
                   <a href=<%= editlink %>>
                      <button> EDIT </button>
                   </a>
@@ -93,6 +97,8 @@
          </span>
          <input type="submit" value="CREATE">
       </form>
+
+      <a href="http://localhost:8888/">HOMEPAGE</a>
 
 
    </body>

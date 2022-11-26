@@ -1,4 +1,4 @@
-## Web Atelier Exercise 5 - Web Apps and APIs with Express
+## Web Atelier Exercise 6 - Persistent Web Apps and APIs with MongoDB
 
 Write your full name here: Gianluca Maragliano
 
@@ -12,7 +12,7 @@ To check your work as a pair, please make sure to commit and push the README.md 
 When you are done solving the assignment type:
 
   ```
-	git commit -m "completed ex5, please check"
+	git commit -m "completed ex6, please check"
 	git push
   ```
 
@@ -25,4 +25,6 @@ Remember: commit __and push__ your solution for every assignment.
 
 Please write here which optional tasks you have completed.
 
-completed tasks for two stars: 1, 4
+
+completed tasks **: 1, 3 
+completed tasks ***: 1, 2

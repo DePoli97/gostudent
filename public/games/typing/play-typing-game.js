@@ -96,7 +96,9 @@ function gameOver() {
 
     let time = '&time=' + (getElapsedTime(performance.now())/1000).toFixed(3);
 
-    window.location = "http://localhost:8888/high_scores/game_over" + p + '&score=' + parseInt(document.querySelector(".score span").innerHTML, 10) + time;
+    let chall = '&chall=' + challenge;
+
+    window.location = "http://localhost:8888/high_scores/game_over" + p + '&score=' + parseInt(document.querySelector(".score span").innerHTML, 10) + time + chall;
     stopTimer();
 
     button_start.focus();
