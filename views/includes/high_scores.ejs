@@ -7,14 +7,13 @@
    High Scores View Fragment
 
 -->
-<aside>
-   <h2>TOP 5 PLAYERS</h2>
-    <% let obj = scoreBoard; 
-    for(let i = 0; i < scoreBoard.length; i++) { 
-      if (i > 5) {break;}; %>
-       <section style="border:5px; border-radius: 10px; margin: 5px;">
-           <h3><%= scoreBoard[i].player %></h3>
-           <h4><%= scoreBoard[i].score %></h4>
-       </section>
-    <% } %>
-</aside>
+<%let score_arr = data; %>
+<ol> 
+   <%
+   for(let i = 0; i < 10; i++) {
+      let displayable = score_arr[i];
+      if (displayable != undefined) { %>
+         <li> <span> <%= displayable.player %> </span> <span> <%= displayable.score %>  </span> <span> <%= displayable.time %>  </span></li>
+     <% }
+   } %>
+</ol>

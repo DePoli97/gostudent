@@ -1,6 +1,6 @@
 ## Web Atelier Exercise 5 - Web Apps and APIs with Express
 
-Write your full name here: ________
+Write your full name here: Gianluca Maragliano
 
 In case you work in pair, write the name of both students here:
 
@@ -24,3 +24,5 @@ Remember: commit __and push__ your solution for every assignment.
 ## Optional Tasks
 
 Please write here which optional tasks you have completed.
+
+completed tasks for two stars: 1, 4

@@ -1,15 +1,3 @@
-body {
-    display: grid;
-    grid-template-columns: 1fr 7fr;
-    border-radius: 10px;
-}
-aside {
-    color: white;
-    background-color: black;
-    border: 1px solid white;
-    border-radius: 10px;
-    text-align: center;
-}
 
 main {
     background: black;

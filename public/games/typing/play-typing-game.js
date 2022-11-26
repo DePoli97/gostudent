@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2022 2 - JavaScript
  *
- * Student: Deidda Paolo
+ * Student: Maragliano Gianluca
  *
  */
 
@@ -25,20 +25,22 @@ function pickRandomChallenge() {
     //     "an economy that is imagined, produced and owned by its creators",
     //     "researchers studying robustness, generalization, capabilities, biases and constraints of the current model"
     // ]
-    if (challenges.length < 1) {
-        return 'no challenges edited yet'
-    }
 
     /*** Quiz 3 ***/
+
+    if (challenges.length < 1) {
+        return 'This is a default challenge, please create new challenges'
+    }
+
     return challenges[Math.floor(Math.random() * challenges.length)];
 }
+
 
 /*** Quiz 4 **/
 function tick() {
 
 /*** Quiz 5 ***/
     let dt = getElapsedTime(performance.now()); //ms
-
     displayTime(dt / 1000); //seconds
 
 }
@@ -89,14 +91,14 @@ let score = (function () {
 
 /*** Quiz 13 ***/
 function gameOver() {
-    let score = document.querySelector('.score span').innerHTML;
-    console.log(score);
-    let time = document.querySelector('.time span').innerHTML;
-    console.log(time);
-    let player = "anonimo";
-    window.location = `http://localhost:8888/high_scores/game_over?score=${score}&time=${time}&player=${player}`;
+
+    let p = window.location.search == '' ? "?player=Anonymous" : window.location.search;
+
+    let time = '&time=' + (getElapsedTime(performance.now())/1000).toFixed(3);
+
+    window.location = "http://localhost:8888/high_scores/game_over" + p + '&score=' + parseInt(document.querySelector(".score span").innerHTML, 10) + time;
     stopTimer();
-    
+
     button_start.focus();
 }
 
@@ -151,3 +153,4 @@ function focusInput() {
 function emptyInput() {
     input_text.value = "";
 }
+

@@ -7,23 +7,12 @@
    Edit Challenge Form
 
 -->
-<!--
-
-   Web Atelier 2022  Exercise 5 - Web Apps and APIs with Express
-
-   Student: __STUDENT NAME__
-
-   Edit Challenge Form
-
--->
 
 <html>
 
    <head>
       <style>
          body{
-            color: white; 
-            background-color: black;
             text-align: center;
          }
          form.postform {
@@ -47,10 +36,10 @@
 
    <body>
 
-      <h1> Edit Challenge <%= id %></h1>
+      <h1> Edit Challenge <%= i %></h1>
 
-      <% let d = challenge
-         let newlink = '/games/typing/challenges/' + id;
+      <% let d = data[i]
+         let newlink = '/games/typing/challenges/' + i + '?_method=PUT'
          let challenge_text = d.text
 
          %>
@@ -70,7 +59,5 @@
          <input type="submit" value="SAVE CHANGES">
       </form>
    </body>
-   <script src = "/games/typing/challenges.js"></script>
-   <script src="/js/typing/script.js"></script>
-   <script src="/js/typing/play-typing-game.js"></script>
+
 </html>

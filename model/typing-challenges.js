@@ -7,9 +7,6 @@
  *
  */
 
-//  {"challenges":[{"text":"ciao ","author":"mondo","level":"3"},{"text":"ci","author":"mondo","level":"3"},{"text":"ci","author":"mondo","level":"3"},{"text":"sadf","author":"fae","level":"2"},{"text":"sadf","author":"fae","level":"2"},{"text":"sadf","author":"fae","level":"2"},{"text":"ciao ","author":"mondo","level":"1"},{"text":"sadf","author":"fae","level":"1"},{"text":"","author":"","level":""},{"text":"9b379ee913df33ed47fa","author":"f8c5f2216d","level":"0"},{"text":"39f11619262f0ecee287","author":"851dcef2f7","level":"2"}],"challenges_id":11}
-
-
 const fs = require('fs-extra');
 const path = require('path');
 

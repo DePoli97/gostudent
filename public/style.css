@@ -1,0 +1,459 @@
+/*
+ * HTML5 and CSS1
+ *
+ * CSS Styles
+ *
+ * Include this stylesheet in all pages of your website
+ *
+ * Author: Gianluca Maragliano
+ *
+ */
+
+
+
+/*
+Template v83 21/09/2022, 11:45:55
+*/
+
+/* GENERAL AND HOME PAGE */
+
+*{
+    text-align: center;
+    margin: 2px;
+    max-width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color:#373737;
+}
+
+body > header {
+    background-color: #C0B283;
+    font-size: 3.5em;
+    border-radius: 1em;
+    color: #373737;
+    font-family: 'Josefin Sans', sans-serif;
+    padding-top: 0.2em;
+}
+
+body > footer {
+    flex: 1;
+    max-height: fit-content;
+    color: #f4f4f4;
+
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+hr {
+    border: solid #C0B283;
+    border-width: 1px;
+}
+
+main.home {
+    display: flex;
+    background-color:#373737;
+    padding: 1vw;
+    min-height: 100%;
+    color: #F4F4F4;
+}
+
+main nav, main aside {
+    flex: 1;
+    background-color: #C0B283;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    color: #373737;
+}
+
+main aside ol {
+    padding-inline-start: 3vw;
+}
+
+main aside li {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 2vw;
+}
+
+article {
+    flex: 3;
+}
+
+article.home{
+    background-color: #373737;
+}
+
+h1 {
+    padding-block: 1em;
+    font-size: 2.7em;
+}
+
+section{
+    padding-block: 0.5em;
+    font-size: 1.2em;
+    text-align: justify;
+    padding-inline: 0.5vw;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+li {
+    text-align: center;
+    font-size: 1.5em;
+    padding-block: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding-inline: 1vw;
+    margin: 0;
+}
+
+aside li {
+    padding-inline: 1vw;
+}
+
+nav li {
+    text-align: center;
+}
+
+main nav li button {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 2vw;
+    background-color: #C0B283;
+    border: #C0B283 solid;
+
+    transition: border, background-color 250ms;
+}
+
+nav li button.current {
+    background-color: #373737;
+    color: #F4F4F4;
+    border: #F4F4F4 solid;
+}
+
+nav li button:hover{
+    background-color: #373737;
+    transition: 250ms;
+    color: #F4F4F4;
+    text-decoration: underline;
+    border: #F4F4F4 solid;
+
+}
+
+#imagehome{
+    width: 40vw;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-block: 1.3em;
+}
+
+.newgame {
+    margin-top: 2em;
+    font-size: 1.7em;
+    color: #373737;
+    background-color: #F4F4F4;
+
+    transition: background-color 1s;
+}
+
+.newgame:focus {
+    background-color: #C0B283;
+    color: #373737;
+    transition: 2s;
+}
+
+#browse {
+    font-size: 1.5em;
+    display: block;
+    margin-top: 5vw;
+    padding-block: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    padding-inline: 1vw;
+    text-decoration: none;
+    border-radius: 0.5em;
+    border: #F4F4F4 solid;
+
+    transition: color 1s;
+}
+
+#browse:visited{
+    color: #C0B283;
+}
+
+#lower {
+    margin-top: 5vw;
+}
+
+/* EDITOR PAGE */
+
+input {
+    font-size: 1em;
+}
+
+#table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+form span {
+    grid-row: 5;
+    grid-column: 2;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#slider, [for="slider"] {
+    grid-row: 6;
+}
+
+section.inputform {
+    font-size: 2vw;
+    padding-inline: 0.7em;
+    border-style: solid;
+    border-radius: 2em;
+    border-color: #C0B283;
+    background-color: #F4F4F4;
+    margin-block: 4em;
+}
+
+main section label {
+    display: block;
+    margin-block: 2vw;
+    border: solid #373737;
+    color: #373737;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    transition: background-color 1s;
+}
+
+main section input {
+    display: block;
+    margin-block: 2vw;
+    width: 100%;
+    color: #373737;
+
+    transition: background-color 1s;
+}
+
+#desclabel{
+    margin-top: auto;
+    margin-bottom: auto;
+
+}
+
+textarea {
+    text-align: left;
+    resize: none;
+    width: 100%;
+    height: 30vw;
+
+    transition: background-color 1s;
+}
+
+#submit {
+    background-color: #F4F4F4;
+    border: #373737 solid;
+    border-radius: 2em;
+    font-size: 1.2em;
+    margin-block: 1em;
+    color: #373737;
+}
+
+#submit:hover, main section label:hover, main section input:focus, textarea:focus, #browse:hover{
+    background-color: #373737;
+    color: #F4F4F4;
+    border: #F4F4F4 solid;
+    transition: 1s;
+}
+
+main section input, textarea {
+    border: #373737 solid;
+}
+
+#uptitle {
+    color: #373737;
+    font-size: 2.7vw;
+}
+
+input[type=checkbox] {
+    visibility: hidden;
+}
+
+.newcheck {
+    position: relative;
+    height: 25px;
+    width: 25px;
+    background-color: #f4f4f4;
+    border: #373737 solid;
+    margin: auto;
+    transition: background-color 1s;
+}
+
+.material-symbols-outlined {
+    position: relative;
+    color: #373737;
+    margin: auto;
+  }
+
+input[type=checkbox]:checked ~ .newcheck{  /*select element preceded by checkbox*/
+    background-color: #C0B283;
+    transition: 1s;
+}
+
+/* BROWSE PAGE */
+
+main.game_table {
+    padding: 1em;
+}
+
+article main header {
+    display: grid;
+    grid-template-columns: 0fr repeat(7, 1fr);
+    background-color: #373737;
+    border: #C0B283 solid;
+    padding-block: 0.7em;
+    font-size: 1.5em;
+    margin: auto;
+}
+
+article header a {
+    color: #F4F4F4;
+    text-decoration: none;
+    margin-block: 1em;
+    padding-inline: 5%;
+}
+
+article.game{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    background-color: #373737;
+    padding-block: 0.7em;
+    padding-inline: 2vw;
+    border: #C0B283 solid;
+}
+
+article.game > * {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+article.game > button {
+    height: 5vw;
+    width: 7vw;
+    background-color:#373737;
+    color: #F4F4F4;
+    margin-block: auto;
+    text-align: center;
+    margin-right: auto;
+}
+
+[data-action="fav"],[data-action="edit"],[data-action="clone"],[data-action="delete"] {
+    display: none;
+}
+
+article.game:hover {
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
+    transition: 1s;
+}
+
+a[rel="play"] {
+    color: #F4F4F4;
+}
+
+article.game:hover > button {
+    display: block;
+}
+
+span.icon img{
+    width: 10vw;
+}
+
+/* PLAY PAGE */
+
+@media all and (max-width: 1100px) {
+    main section.actions button {
+        font-size: 3.5vw;
+    }
+}
+
+
+@media all and (max-width: 700px) {
+
+    main {
+        flex-direction: column;
+    }
+
+    aside li {
+        font-size: 1.2em;
+        text-align: center;
+        padding-block: 0.6em;
+    }
+
+    main nav li button {
+        font-size: 1.2em;
+        margin-block: 0.05em;
+    }
+
+    main section.inputform {
+        font-size: 1em;
+        margin-block: 2em;
+    }
+
+    main section.inputform input, textarea {
+        width: 40.5vw;
+    }
+
+    #uptitle {
+       font-size: 2em;
+    }
+
+
+    article.game{
+        display: flex;
+        height: 95vh;
+        margin-block: 1em;
+        flex-direction: column;
+    }
+
+    article.game span {
+        margin-block: 1.5em;
+        font-size: 1.3em;
+    }
+
+    article.game button {
+        display: block;
+        margin-block: 0.5em;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100vw;
+        height: 5vw;
+        font-size: 2vw;
+    }
+
+    a[rel="play"] {
+        font-size: 2em;
+        color: #F4F4F4;
+        text-decoration: none;
+        border: #C0B283 solid;
+    }
+
+    a[rel="play"]:hover{
+        border: #C0B283 dotted;
+    }
+
+    article main header {
+        display: none;
+    }
+
+    main.home main {
+        max-width: 100%;
+    }
+
+}

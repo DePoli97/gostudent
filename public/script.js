@@ -1,7 +1,7 @@
 /**
- * Web Atelier 2022 2 - JavaScript
+ * Web Atelier 2022 3 - Object-Oriented JavaScript
  *
- * Student: Deidda Paolo
+ * Student: Maragliano Gianluca
  *
  */
 
@@ -16,23 +16,41 @@
  * SS indicates that if the number of seconds is less than 10, it should be padded with a 0 character.
  * MS indicates the number of milliseconds (3 digits)
  */
-function format_seconds(s) {
-    if (isNaN(s) || typeof(s) !== "number") {return "?:??.????";}
-    if (s == 0) {
-        return "0:00.000";
-    } 
-    if (s < 0) {
-        format_seconds(s *-1);
-        let positive = format_seconds(s *-1);
-        return '-' + positive;
-    } else {
-        let min = Math.trunc(s / 60);
-        let sec = (Math.trunc(s % 60).toString()).padStart(2,"0");
-        let millisec = Math.round((1000 * (s - Math.trunc(s))).toFixed(3));
-        return min+":"+sec+"."+millisec;
+ function format_seconds(s) {
+
+    let z = parseInt(s);
+
+    if (isNaN(z) || z == undefined) 
+        return "?:??.????";
+
+    let c = Math.abs(s) / 60;
+
+    let out = "";
+    let min = Math.trunc(c);
+    let sec = Math.trunc(Math.abs(s) - min*60);
+    let millsec = ((s - Math.trunc(s)).toFixed(3))*1000;
+
+
+    if (sec < 10)
+        sec = "0" + sec;
+
+    if (millsec < 10) {
+        millsec = "00" + millsec;
+    } else if (10 <= millsec && millsec < 100) {
+        millsec = "0" + millsec;
     }
+
+    out += min + ":" + sec + "." + millsec;
+
+    if (s < 0) 
+        out = "-" + out;
+
+    return out;
 }
-    
+
+
+
+
 
 /**
 * @param {Number[]} a - The array of numbers.
@@ -41,10 +59,20 @@ function format_seconds(s) {
 * with the input scalar value `c`.
 */
 function scalar_product(a, c) {
-    if (a == undefined  || c == undefined || !Array.isArray(a)) {
+
+    if (!Array.isArray(a) || isNaN(c))
         return undefined;
+
+    let b = [];
+
+    for (let i = 0; i<a.length; i++) {
+        if (isNaN(a[i])) 
+            return undefined;
+        else
+            b.push(a[i]*c);
     }
-    return a.map( function x(el) {return el*c})
+    
+    return b;
 }
 
 
@@ -54,27 +82,49 @@ function scalar_product(a, c) {
  * @return {number} A value computed by summing the products of each pair
  * of elements of its input arrays `a`, `b` in the same position.
  */
- function inner_product(a, b) {
-    if (!Array.isArray(a) || !Array.isArray(b) || a.length != b.length) {return undefined}
+function inner_product(a, b) {
+
+    if (a == undefined || b == undefined) 
+        return undefined;
+
+    if (!Array.isArray(a) || !Array.isArray(b))
+        return undefined;
+
+    if (a.length != b.length)
+        return undefined;
+
     let sum = 0;
-    for(let i = 0; i < a.length; i+=1) {
-        sum = a[i]*b[i];
+
+    for (let i=0; i<a.length; i++) {
+        sum += a[i]*b[i];
     }
+
     return sum;
 }
 
 
 /**
- * @param {String} a - A string typed by the user
- * @param {String} b - The correct string
- * @return {Array[Boolean]} Array indicating whether the corresponding characters are wrong: (true = mismatch detected, false = identical characters).
- */
+* @param {String} a - A string typed by the user
+* @param {String} b - The correct string
+* @return {Array[Boolean]} Array indicating whether the corresponding characters are wrong: (true = mismatch detected, false = identical characters).
+*/
 function getErrors(a, b) {
-    logFunctionArguments(arguments);
-    if(a == undefined || b == undefined) {return undefined};
-        let sol = [];
-        for (let i = 0; i < a.length; i++) {(a[i] == b[i] ? sol.push(false) : sol.push(true))};
-    return sol;
+
+    if (typeof(a) != "string" || typeof(b) != "string") 
+        return undefined;
+
+    a = a.split("");
+    b = b.split("");
+    let c = [];
+
+    for (let i=0; i<a.length; i++) {
+        if(a[i] == b[i])
+            c.push(false);
+        else
+            c.push(true);
+    }
+
+    return c;
 }
 
 
@@ -85,12 +135,19 @@ function getErrors(a, b) {
 * @return {Integer} The number of mismatching characters. Case sensitive.
 */
 function countErrors(a, b) {
-    if (a == undefined || b == undefined) {return undefined};
-    let counter = 0;
-    for (let i = 0; i < a.length; i++) {
-        if (a[i] != b[i]) {counter++};
+
+    if (typeof(a) != "string" || typeof(b) != "string") 
+        return undefined;
+
+    let c = getErrors(a, b);
+    let count = 0;
+
+    for (let i = 0; i<c.length; i++) {
+        if (c[i])
+            count++
     }
-    return counter;
+    return count;
+
 }
 
 /**
@@ -104,8 +161,11 @@ function countErrors(a, b) {
  * @returns {Boolean} true, if the point is located inside (including the edge), false outside
  */
 function detectCollisionRect(x, y, left, top, width, height) {
-    return (left <= x && x <= left + width) && 
-           (top <= y && y <= top + height);
+    
+    if (x >= left && x <= left + width && y >= top && y <= top + height)
+        return true;
+    else
+        return false;
 }
 
 /**
@@ -116,14 +176,17 @@ function detectCollisionRect(x, y, left, top, width, height) {
  * @returns
  */
 function detectCollisionRectArray(x, y, a) {
-    if ((!Array.isArray(a)) || (a.length === 0) || (x === undefined) || (y === undefined) || (a === undefined)) {return undefined;}
+
+    if (!Array.isArray(a) || a.length < 1)
+        return undefined;
+
     for (let i = 0; i < a.length; i++) {
-        if ((a[i][0] <= x && x <= a[i][0] + a[i][2]) && 
-             (a[i][1] <= y && y <= a[i][1] + a[i][3])) {
-            return true;
-        }
-    }
+        if(detectCollisionRect(x, y, a[i][0], a[i][1], a[i][2], a[i][3]))
+        return true;
+    }       
+
     return false;
+
 }
 
 
@@ -138,10 +201,12 @@ function detectCollisionRectArray(x, y, a) {
 * @return {function(t)} A function which given a timestamp t computes the time elapsed since the initial timestamp t0.
 */
 function startClock(t0) {
-    if (!isNaN(t0)) {
-        return function getElapsedTime(t) {
-            return t - t0;
-        }
+
+    if (t0 == undefined)
+        return undefined;
+
+    return function getElapsedTime(t) {
+        return t - t0;
     }
 }
 
@@ -151,62 +216,65 @@ function startClock(t0) {
  * @return {function} - call this function to retrieve the next element of the array. The function throws an error if called again after it reaches the last element.
  */
 function iterator(a) {
-    if (!Array.isArray(a)) {return undefined;}
-    let pos = 0;
-    function next(b) {
-        if (b == null) {
-            if (pos >= a.length) {
-                throw new Error("Exceded Limits");
-            }
-            pos++;
-            return a[pos -1]; // -1 so I update pos before returning
-        } 
-        if (Array.isArray(b)) {
-            pos = 0;
+
+    let i = 0;
+
+    if (a == undefined || !Array.isArray(a))
+        return undefined;
+
+    return function next(b) {
+
+        if (i >= a.length) {
+            throw new Error ("beyond end of the array");
+        }
+
+        if (b == undefined) {
+            i++;
+            return a[i-1];
+        } else if (Array.isArray(b)) {
+            i = 0;
             a = b;
             return next;
-        }
-        if (a.lenght === 0) {return next;}
-        if (typeof(b) == "number") {
-            if (b == 0) {
-                return pos;
-            }
-            pos = pos +b; // dunno why without -1 does not work and would return the pos after it...
-            if (pos < 0) {pos = 0}
+        } else if (!isNaN(b)) {
+            i += b;
+            return i;
         }
     }
-    return next;
 }
 
 
-/**
- * @param {event} a - The click event
- * @return undefined;
- */
+
 /**
  * @param {event} a - The click event
  * @return undefined;
  */
 function button_start_click(event) {
+
     //start the clock
     
     getElapsedTime = startClock(performance.now());
 
     //start the timer event
+
     stopTimer = startTimer(tick);
 
     //pick a random text challenge and display it
+
     challenge = pickRandomChallenge();
+
     displayChallenge(challenge);
 
+
     //get the <input> ready for the next round
+
     emptyInput();
     focusInput();
-    input_text.style.opacity = 1;
-    //reset the score
-    score();
-}
 
+    //reset the score
+
+    score();
+
+}
 
 
 
@@ -215,26 +283,25 @@ function button_start_click(event) {
  * @return undefined;
  */
 function txt_input(event) {
+
     //game over when input matches challenge length
-    if (event.target.value.length === challenge.length) { //input_text.target.lenght
-        gameOver();                                       //dall event listener
-    }
+
+    if (challenge.length == input_text.value.length){
+        gameOver();
+    } 
 
     //count errors and display them
-    let ce = countErrors(event.target.value, challenge);
-    displayErrors((challenge.length - ce) / challenge.len)
 
-    score();
-    let count = countErrors(event.target.value, challenge);
-    errorperc = count/event.target.value.length;
-    displayErrors(1-errorperc);
-
+    let errors = countErrors(input_text.value, challenge);
+    displayErrors((input_text.value.length - errors) / input_text.value.length);
+    
     //update the score based on the errors
-    score(event.target.value.length - count);
+
+    displayScore(input_text.value.length - errors);
 
     //redisplay the challenge string to highlight the errors
-    let redisplay = getErrors(event.target.value,challenge);
-    displayChallenge(challenge, redisplay);   
+
+    displayChallenge(challenge, getErrors(input_text.value, challenge));
 }
 
 

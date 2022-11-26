@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2022  Exercise 5 - Web Apps and APIs with Express
  *
- * Student: Deidda Paolo
+ * Student: __STUDENT NAME__
  *
  * Router auto-loader
  *

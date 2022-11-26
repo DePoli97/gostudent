@@ -1,28 +1,34 @@
 /**
  * Web Atelier 2022  Exercise 5 - Web Apps and APIs with Express
  *
- * Student: Deidda Paolo
+ * Student: __STUDENT NAME__
  *
  * /high_scores router
  *
  */
 
 
-const { request } = require('express');
+
+const { render } = require('ejs');
 const express = require('express');
 const router = express.Router();
-const hs = require('../model/high_scores');
 module.exports = router;
 
-router.get('/game_over', (req, res) => {
-    if (request.accepts("html")) {
-        res.render("game_over", {score: req.query.score, time: req.query.time, player: req.query.player});
-    } else {
-        res.status(406).end();
-    }
+const hs = require('../model/high_scores');
+
+router.get("/game_over", (req, res)=> {
+
+    console.log(req.query.time + "time")
+
+    res.render('game_over', {
+        player : req.query.player || "", 
+        score : req.query.score,
+        time : req.query.time
+    });
 });
 
 router.post('/', (req, res)=> {
+    
     hs.update_score({
         player : req.body.player, 
         score : req.body.score,
@@ -30,6 +36,6 @@ router.post('/', (req, res)=> {
     });
 
     hs.save();
-    res.redirect("index.html");
-});
 
+    res.redirect('index.html');
+});

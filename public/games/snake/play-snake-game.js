@@ -3,7 +3,7 @@
  *
  * ObjectSnake Game
  *
- * Student _Deidda Paolo_
+ * Student: __STUDENT NAME__
  *
  */
 
@@ -20,11 +20,11 @@ class Game {
     /* Quiz 2 */
     constructor(player) {
 
-        /* Quiz 3 */
+         /* Quiz 3 */
         this.running = false;
         this.player = player;
 
-        /* Quiz 4 */
+         /* Quiz 4 */
         this.displayPlayer(player);
     }
 
@@ -42,14 +42,11 @@ class Game {
         this.running = false;
         clearInterval(this.timer);
 
-        document.dispatchEvent(new CustomEvent("game.over", {
-            detail:
+        document.dispatchEvent(new CustomEvent("game.over", { detail:
             /* Quiz 7 */
-            {
-                player: this.player,
-                score: this.score,
-                time: this.getElapsedTime()
-            }
+            { player: this.player,
+               score: this.score,
+                time: this.getElapsedTime() }
         }));
     }
 
@@ -157,21 +154,21 @@ class CanvasGame extends Game {
 //--------------------------------------------------------------------------------------
 
 class SnakeGame extends CanvasGame {
-    
+
     constructor(player, canvas, initial_length = 5) {
         super(player, canvas);
-        
-        /* Quiz 15 */
+
+         /* Quiz 15 */
         this.snake = new Snake(initial_length,
             { x: canvas.width / 2, y: canvas.height / 2 },
             { dx: 1, dy: 0 },
             this.getCanvasBound(canvas));
-            
-            
-            //TODO: create food object
-            this.food = new Food(this.getCanvasBound(canvas));
-        }
-        
+
+        //TODO: create food object
+        this.food = new Food(this.getCanvasBound());
+
+    }
+
     getCanvasBound(canvas = this.canvas) {
         return { left: 0, top: 0, width: canvas.width, height: canvas.height };
     }
@@ -185,36 +182,42 @@ class SnakeGame extends CanvasGame {
     startGame() {
         super.startGame();
         this.snake_interval = setInterval(this.tick.bind(this), 25);
-        //TODO: create the timer to make the food appear/disappear
-        //this.food_interval = ...
-        this.food_interval = setInterval(this.food_tick.bind(this), 5000);
+    //TODO: create the timer to make the food appear/disappear
+        this.food_interval = setInterval(this.food_tick.bind(this), 5000)
     }
 
     stopGame() {
         super.stopGame();
         clearInterval(this.snake_interval);
         clearInterval(this.food_interval);
+
+
+        let p = window.location.search == '' ? "?player=Anonymous" : window.location.search;
+
+        let time = '&time=' + this.getElapsedTime().toFixed(3);
+
+        window.location = "http://localhost:8888/high_scores/game_over" + p + '&score=' + parseInt(document.querySelector(".score span").innerHTML, 10) + time;
+
     }
 
     tick() {
-
         if (this.snake.move() == false) {
 
             this.health--;
 
         } else {
 
-
             //TODO: check if the snake hit the food
+            //TODO: if yes: 1. make the snake eat the food
+            //TODO: 2. increase the game score
             if (this.food.hit(this.snake)) {
-                //TODO: if yes: 1. make the snake eat the food
                 this.snake.eat(this.food);
-                //TODO: 2. increase the game score
                 this.score += this.food.length;
                 //TODO: 3. add more food
                 this.food = new Food(this.getCanvasBound());
 
             }
+
         }
 
     }
@@ -226,7 +229,7 @@ class SnakeGame extends CanvasGame {
 
     keydown(event) {
 
-        /* Quiz 15 */
+         /* Quiz 15 */
         if (this.running) event.preventDefault();
 
         const LEFT_KEY = 37;
@@ -273,16 +276,18 @@ class Food {
             x: getRandom(bound.left, bound.left + bound.width - this.size.w),
             y: getRandom(bound.top, bound.top + bound.height - this.size.h)
         }
+
         //TODO: create a random color (Hint: use HSL instead of RGB values)
         this.color = {
-            h: Math.round(Math.random() * 360),
-            s: Math.round(Math.random() * 100),
-            l: 50
+            h: getRandom(0, 360),
+            s: getRandom(20, 100),
+            l: getRandom(20, 100)
         }
+
     }
 
     get colorString() {
-        /* Quiz 16 */
+         /* Quiz 16 */
         return `hsl(${this.color.h}deg ${this.color.s}% ${this.color.l}%)`;
     }
 
@@ -294,15 +299,11 @@ class Food {
         //TODO: paint the food on the canvas
         ctx.fillStyle = this.colorString;
         ctx.fillRect(this.position.x, this.position.y, this.size.w, this.size.h);
-
     }
-    
 
     hit(snake) {
-        //TODO: return true if the snake head //(the whole body)// overlaps with the the food rectangle shape
-        return snake.position.some((pos) => 
-            detectCollisionRect(pos.x, pos.y, this.position.x, this.position.y, this.size.w, this.size.h)
-        );    
+        //TODO: return true if the snake head overlaps with the the food rectangle shape
+        return snake.position.some(pos => detectCollisionRect(pos.x, pos.y, this.position.x, this.position.y, this.size.w, this.size.h));
     }
 
 }
@@ -341,6 +342,7 @@ class Snake {
         let result = true;
 
         /* Quiz 17 */
+
         let old_pos = { ...this.position[0] };
         let new_pos = {
             x: old_pos.x + this.velocity.dx,
@@ -350,26 +352,21 @@ class Snake {
         /* Quiz 18 */
         if (new_pos.x > this.bound.left + this.bound.width) {
             new_pos.x = this.bound.left;
-            new_pos.y = this.bound.height * Math.random();//random pos: bounus 8
 
             result = false;
         }
         if (new_pos.x < this.bound.left) {
             new_pos.x = this.bound.left + this.bound.width;
-            new_pos.y = this.bound.height * Math.random();//random pos: bounus 8
 
             result = false;
         }
         if (new_pos.y > this.bound.top + this.bound.height) {
             new_pos.y = this.bound.top;
-            new_pos.x = this.bound.width * Math.random();//random pos: bounus 8
-            
 
             result = false;
         }
         if (new_pos.y < this.bound.top) {
             new_pos.y = this.bound.top + this.bound.height;
-            new_pos.x = this.bound.width * Math.random();//random pos: bounus 8
 
             result = false;
         }
@@ -388,9 +385,9 @@ class Snake {
     }
 
     eat(food) {
-        //TODO: make the snake grow and change color
-        this.color = food.colorString; 
         this.length += food.length;
+        this.color = food.colorString;
+        //console.log(food.status + ", " + this.length)
     }
 
     paint(ctx) {
@@ -403,7 +400,6 @@ class Snake {
     }
 
 }
-//TODO; 
 
 /**
  * Call this function to initialize the game
@@ -413,33 +409,34 @@ class Snake {
 function snake_game_init(canvas, start_button) {
 
     //TODO: read the player name from the browser address bar
-    let url = new URLSearchParams(window.location.search);
-    let player = url.get("player") ?? "Player";
-
+    let url = new URL(window.location);
+    let player = url.searchParams.get("player");
+    
     /* Quiz 21 */
     let snake_game = new SnakeGame(player, canvas);
 
-    start_button.addEventListener("click", () => {
-        console.log('prova')
+    start_button.addEventListener("click", (event) => {
+
         snake_game.startGame();
 
     });
 
     //TODO: set up a "keydown" event listener and make it call the corresponding method of the game
     document.addEventListener("keydown", (event) => {
+
         snake_game.keydown(event);
+
     });
 
 
-
     //TODO: catch the game over event to update the high score list
+
     document.addEventListener('game.over', (event) => {
         loadHighscore(event.detail);
         localStorage.setItem("high_scores", JSON.stringify(high_scores));
     });
-
-
 }
+
 
 function loadHighscore (newscore) {
     let i = 0;
@@ -448,42 +445,41 @@ function loadHighscore (newscore) {
             high_scores[i] = newscore;
             break;
         } else if (high_scores[i].score < newscore.score) {
-            high_scores.splice(i, 0, newscore);
-            if (high_scores.length > 10) {
-                high_scores.pop();
-            }
+            add(newscore, i);
             break;
         }
         i++;
     }
 }
 
-snake_game_init(document.querySelector("canvas"), document.querySelector('button[data-action="start"]'));
-
-high_scores = JSON.parse(localStorage.getItem("high_scores"));
-
-
-if (high_scores ==  null) {
-    high_scores = [];
+function add(newscore, index) {
+    high_scores.splice(index, 0, newscore);
+    if (high_scores.length > 10) {
+        high_scores.pop();
+    }
 }
 
-localStorage.setItem("high_scores", JSON.stringify(high_scores));
+function init() {
+    snake_game_init(document.querySelector("canvas"), document.querySelector("[data-action=start]"));
+       
+    try {
+        high_scores = JSON.parse(localStorage.getItem("high_scores"));
+    if (high_scores ==  null) {
+        high_scores = [];
 
+        localStorage.setItem("high_scores", JSON.stringify(high_scores));
 
+    } }
+    catch (i){
+        high_scores = [];       
+        localStorage.setItem("high_scores", JSON.stringify(high_scores));
 
-let name, score;
-function set_leaderboard() {
-    // if there is no high score break
-    if (high_scores.length == 0) {
-        return;
     }
-
-    scoreboard = JSON.parse(localStorage.getItem("high_scores"));
-
-    for (let i = 0; i < 3; i++) {
-        document.querySelector("#score" +i).innerHTML = scoreboard[i].score;
-        document.querySelector("#player" +i).innerHTML = scoreboard[i].player;
-    }
-
+    
 }
-window.addEventListener('storage', set_leaderboard);
+
+
+module.exports = {
+    add, 
+    loadHighscore
+}

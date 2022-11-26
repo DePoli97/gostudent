@@ -1,7 +1,7 @@
 /**
  * Web Atelier 2022  Exercise 5 - Web Apps and APIs with Express
  *
- * Student: __Deidda Paolo__
+ * Student: __STUDENT NAME__
  *
  * Main Server Application
  *
@@ -46,7 +46,6 @@ const routers = require('./routes');
 app.use(routers.home);
 app.use('/games', routers.games);
 app.use('/high_scores', routers.high_scores);
-app.use('/', routers.home);
 
 
 //default fallback handlers

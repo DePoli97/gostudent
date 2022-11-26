@@ -1,101 +1,70 @@
 /**
  * Web Atelier 2022  Exercise 5 - Web Apps and APIs with Express
  *
- * Student: Deidda Paolo
+ * Student: __STUDENT NAME__
+ *
  * /games router
  *
  *
  */
 
-const { request } = require('express');
 const express = require('express');
 const router = express.Router();
-const hs = require('../model/high_scores');
 module.exports = router;
+
+
+const fs = require('fs-extra');
 
 let model = require("../model/typing-challenges");
 
-router.get('/typing/challenges.js', (req, res) => {
-    res.render("typing-challenges-js", {challenges: model.data});
-})
 
-router.get('/typing/challenges', (req, res) => {
-    if (request.accepts("html")) {
-        res.render("typing-challenges.ejs", {challenges: model.data});
-    } else {
-        res.status(406).end();
-    }
-})
+const hs = require('../model/high_scores');
 
-router.get('/typing', (req, res) => {
-    if (request.accepts("html")) {
-        res.render("play-typing-game.ejs", {scoreBoard : hs.data});
-    } else {
-        res.status(406).end();
-    }
-})
+router.get("/typing", (req, res)=> {
+    res.render('typing-game', {data : hs.data});
+});
 
-router.get('/snake', (req, res) => {
-    if (request.accepts("html")) {
-        res.render("play-snake-game.ejs", {scoreBoard : hs.data});
-    } else {
-        res.status(406).end();
-    }
-})
+router.get("/snake", (req, res)=> {
+    res.render('snake', {data : hs.data});
+});
 
-router.post("/typing/challenges", (req, res) => {
-    let challenge = {text: req.body.text, 
-                    author: req.body.author, 
-                    level: req.body.level
-                }
-    model.data.push(challenge); 
-    model.nextId();
-    model.save();
+router.post("/random", (req, res)=> {
+    let p = req.body.player
+    
+    let game = Math.random() > 0.5 ? 'typing' : 'snake';
 
     res.redirect(`${game}?player=${p}`);
-})
+});
 
-//random game
-router.post("/random", (req, res) => {
-    let n = Math.random();
-    
+router.get('/typing/challenges', (req, res)=> {
+    res.render('typing-challenges', {data : model.data});
+});
 
-    if (n <= 0.5) {
-        res.redirect("snake");
-    } else {
-        res.redirect("typing");
-    };
-})
+router.post('/typing/challenges', (req, res)=> {
 
+    let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
-// game over
-router.get("/high_scores/game_over?player&score", (req, res) => {
-    res.render("game-over.ejs");
-})
+    if (format.test(req.body.text)) 
+        res.sendStatus(400);
+    else {
 
+        model.add_chall({
+            text : req.body.text,
+            author : req.body.author,
+            level : req.body.level
+        })
 
-router.get("/typing/challenge/:id/edit", (req, res) => {
-    let id = req.params.id;
-    if (id && id != undefined) {
-        res.render("typing-challenges-edit.ejs", {challenge: model.data, id});
-    } else {
-        res.status(404).end();
+        res.render('typing-challenges', {data : model.data});
     }
-})
+});
 
-
-// router.put("/typing/challenges/:id", (req, res) => {
-//     let id = req.param.id;
-//     console.log(id);
-//     if (id && id != undefined) {
-//         model.update_chall(id, {text: req.body.text, author: req.body.author, level: req.body.level})
-//     } else {
-//         res.status(404).end();
-
-//     }
-//     res.redirect("typing-challenges");
-// })
-
+router.get('/typing/challenges/:id/edit',(req, res)=> {
+    let id = req.params.id;
+    if (model.data[id] != undefined)
+        res.render('typing-challenges-edit', {data : dmodel.data, i : id});
+    else 
+        res.sendStatus(404);
+});
 
 router.put('/typing/challenges/:id',(req, res)=> {
 
@@ -106,11 +75,8 @@ router.put('/typing/challenges/:id',(req, res)=> {
         res.sendStatus(400);
 
     else {
-        // console.log("ciao");
         let id = req.params.id;
-        const i = model.data.findIndex(element => element.id == id);
-        console.log(i);
-        model.update_chall(i, {
+        model.update_chall(id, {
             text : req.body.text,
             author : req.body.author,
             level : req.body.level
@@ -120,9 +86,15 @@ router.put('/typing/challenges/:id',(req, res)=> {
     }
 });
 
+
 router.delete('/typing/challenges/:id', (req, res)=> {
     let id = req.params.id;
 
     model.delete_chall(id);
     res.redirect('/games/typing/challenges');
+});
+
+router.get('/typing/challenges.js', (req, res)=> {
+    
+    res.render('typing-challenges-js', {challenges : model.data})
 });

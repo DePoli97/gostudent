@@ -2,20 +2,19 @@
 
    Web Atelier 2022  Exercise 5 - Web Apps and APIs with Express
 
-   Student: __Deidda Paolo__
+   Student: __STUDENT NAME__
 
    Game Over Page
 
 -->
+
 
 <html>
 
    <head>
       <style>
          body {
-            color: white;
-            background-color: black;
-            text-align: left;
+            text-align: center;
          }
          p{
             font-size: 3em;
@@ -32,15 +31,11 @@
    <body>
 
       <p class="player">
-         <span>player name: <%= player %></span>
+         <span><%= player %></span>
       </p>
 
       <p class="score">
-         <span>score: <%= score %></span>
-      </p>
-
-      <p class="time">
-         <span>game time: <%= time %></span>
+         <span><%= score %></span>
       </p>
 
       <p> Would you like to save your score in the score board?</p>
@@ -53,7 +48,7 @@
 
       </form>
 
-      <form method="GET" action="/">
+      <form method="GET" action="../index.html">
 
          <input type="submit" value="NO">
 
