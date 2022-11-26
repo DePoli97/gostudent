@@ -22,7 +22,7 @@ const client = new mongodb.MongoClient(mongodb_uri);
 const db_name = 'web-atelier-ex';
 
 /* Quiz 4 */
-const collection_names = ['high_scores', 'typing_challenges'];
+const collection_names = ['high_scores', 'typing_challenges', 'games'];
 
 /* Quiz 5 */
 const model = {};
@@ -36,12 +36,24 @@ client
         console.log("Connected to mongodb server");
 
         /* Quiz 8 */
-        model.db = client.db(db_name);
-        collection_names.forEach(c=>{
+        model.db = client.db(db_name);                  //select which db to use
+        collection_names.forEach(c=>{                   //select which collections to use
             /* Quiz 9 */
             model[c] = model.db.collection(c);
         })
 
+
+
+
+        //initialize games collection on db
+        model.games.find({game : 'snake'}).toArray().then(e => {
+            if (e.length === 0)
+                model.games.insertOne({game : 'snake'});
+        });
+        model.games.find({game : 'typing'}).toArray().then(e => {
+            if (e.length === 0)
+                model.games.insertOne({game : 'typing'});
+        });
 
     }) /* Quiz 10 */
     .catch(err => console.error(err));

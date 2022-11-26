@@ -12,17 +12,14 @@ const router = express.Router();
 module.exports = router;
 
 
-
 let { model } = require("../model/");
 
 
-router.get("/index.html", (req, res) => {
+router.get(["/", "index", "/index.html"], (req, res) => {
 
     /* Quiz 11 */
     model.high_scores.find({}).toArray().then(high_scores => {
 
-        res.render("index.ejs", { high_scores });
-
+        res.render("index.ejs", { data : high_scores });
     });
-
 });

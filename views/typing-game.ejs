@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>PLAY</title>
+    <meta name="author" content="Gianluca Maragliano">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <link rel="stylesheet" href="play-typing-game.css">
+    <link rel="stylesheet" href="../../style.css">
+
+    
+</head> 
+
+<body>
+
+
+
+    <%- include('includes/main_nav') %>
+
+    <main>
+        <article>
+            <header>
+                <p class="player"> PLAYER <span> </span></p>
+                <p class="score"> SCORE <span> </span></p>
+                <p class="health"> HEALTH <span> </span></p>
+            </header>
+    
+            <p> 
+                <span></span>
+            </p>
+            
+            <section class="game"> 
+                <section class="challenge"> 
+                    <span></span>
+                    <span class="undef"></span>
+                    <span class="ok"></span>
+                    <span class="error"></span>
+                </section>
+
+                <input type="text" id="txt">
+            </section>
+            
+            <footer>
+                <p class="level"> LEVEL <span> </span></p>
+                <p class="time"> TIME <span> </span> </p>
+            </footer>
+            
+            <section class="actions">
+                <button data-action="start"> START </button>
+                <button data-action="save"> SAVE </button>
+                <button data-action="quit"> QUIT </button>
+            </section>
+        </article>
+    </main>
+
+
+    <%- include('includes/main_aside', {data : data, type : 'typing'}) %>
+
+    <%- include('includes/footer') %>
+
+    <script src='challenges.js' > </script>
+    
+    <script src="../../script.js"></script>
+    <script src="play-typing-game.js"></script>
+
+</body>
+
+</html>

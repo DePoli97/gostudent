@@ -1,6 +1,6 @@
 ## Web Atelier Exercise 6 - Persistent Web Apps and APIs with MongoDB
 
-Write your full name here: ________
+Write your full name here: Gianluca Maragliano
 
 In case you work in pair, write the name of both students here:
 
@@ -24,3 +24,7 @@ Remember: commit __and push__ your solution for every assignment.
 ## Optional Tasks
 
 Please write here which optional tasks you have completed.
+
+
+completed tasks **: 1, 3 
+completed tasks ***: 1, 2
